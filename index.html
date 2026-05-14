@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucas Xu Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f3ea;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(247, 243, 234, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-style: italic;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.55;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 110px 24px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 48px;
+      padding-top: 120px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 24px;
+      padding: 9px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      font-size: 14px;
+    }
+
+    h1, h2, .big-serif {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      line-height: 0.98;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(56px, 8vw, 104px);
+    }
+
+    h2 {
+      font-size: clamp(42px, 5vw, 64px);
+    }
+
+    .hero p, .about-text, .statement p {
+      margin-top: 28px;
+      max-width: 680px;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .buttons {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-dark {
+      background: #111;
+      color: white;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .button-light {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-card-wrap {
+      position: relative;
+    }
+
+    .glow-a, .glow-b {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(45px);
+      z-index: -1;
+    }
+
+    .glow-a {
+      width: 180px;
+      height: 180px;
+      background: #bfdbfe;
+      left: -30px;
+      top: -30px;
+    }
+
+    .glow-b {
+      width: 210px;
+      height: 210px;
+      background: #fed7aa;
+      right: -30px;
+      bottom: -30px;
+    }
+
+    .hero-card {
+      background: white;
+      padding: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 34px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    .black-panel {
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+      border-radius: 26px;
+      background: #111;
+      color: white;
+    }
+
+    .black-panel-inner {
+      padding: 36px;
+      width: 100%;
+    }
+
+    .overline {
+      margin-bottom: 32px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .stacked-words {
+      font-family: Georgia, serif;
+      font-size: 42px;
+      line-height: 1.05;
+    }
+
+    .stacked-words .soft {
+      padding-left: 45px;
+      color: rgba(255, 255, 255, 0.65);
+      font-style: italic;
+    }
+
+    .stacked-words .soft.second {
+      padding-left: 95px;
+    }
+
+    .mini-tags {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .mini-tags div {
+      background: #f4f4f4;
+      border-radius: 18px;
+      padding: 12px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 60px;
+    }
+
+    .section-label {
+      margin-bottom: 18px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: #777;
+    }
+
+    .about-text p {
+      margin-bottom: 22px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 26px;
+      padding: 22px;
+    }
+
+    .skill-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .skill-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .skill-card p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .projects-header p {
+      max-width: 430px;
+      color: #666;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 34px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      transition: 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .project-image {
+      height: 210px;
+      padding: 24px;
+      background: linear-gradient(135deg, #dbeafe, #ede9fe);
+    }
+
+    .project-image.pink {
+      background: linear-gradient(135deg, #fce7f3, #ffedd5);
+    }
+
+    .project-image.green {
+      background: linear-gradient(135deg, #d1fae5, #cffafe);
+    }
+
+    .project-image.stone {
+      background: linear-gradient(135deg, #f5f5f4, #e0f2fe);
+    }
+
+    .project-image-inner {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.38);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-year {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .project-type {
+      margin-top: 8px;
+      font-family: Georgia, serif;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .arrow {
+      font-size: 28px;
+    }
+
+    .project-content {
+      padding: 26px;
+    }
+
+    .project-content h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .project-content p {
+      color: #666;
+      margin-bottom: 18px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: #f3f3f3;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .statement-box {
+      padding: 56px;
+      border-radius: 42px;
+      background: #111;
+      color: white;
+    }
+
+    .statement {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .statement p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0;
+    }
+
+    .contact-inner {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding-top: 48px;
+    }
+
+    .contact-buttons {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero,
+      .two-column,
+      .statement {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .project-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 80px 20px;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .statement-box {
+        padding: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="#home">Lucas Xu</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div>
+      <div class="badge">✦ CS × HCI × Design Creativity</div>
+      <h1>Building thoughtful technology through research, code, and design.</h1>
+      <p>
+        I’m Lucas, a student at UW–Madison exploring human-computer interaction,
+        robotics, and creative product systems. My work sits between technical
+        implementation and design imagination.
+      </p>
+      <div class="buttons">
+        <a class="button button-dark" href="#projects">View Projects</a>
+        <a class="button button-light" href="#contact">Contact Me</a>
+      </div>
+    </div>
+
+    <div class="hero-card-wrap">
+      <div class="glow-a"></div>
+      <div class="glow-b"></div>
+      <div class="hero-card">
+        <div class="black-panel">
+          <div class="black-panel-inner">
+            <div class="overline">Portfolio System</div>
+            <div class="stacked-words">
+              <div>Research</div>
+              <div class="soft">meets</div>
+              <div>Design</div>
+              <div class="soft second">meets</div>
+              <div>Code</div>
+            </div>
+          </div>
+        </div>
+        <div class="mini-tags">
+          <div>HCI</div>
+          <div>Robotics</div>
+          <div>Design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="two-column">
+      <div>
+        <div class="section-label">About</div>
+        <h2>A hybrid background in computer science and industrial design.</h2>
+      </div>
+      <div class="about-text">
+        <p>
+          My work connects technical systems with human experience. I’m interested
+          in HCI, AI-assisted workflows, robotics, and creative hardware products
+          that make abstract digital behavior visible and discussable.
+        </p>
+        <p>
+          Before focusing on computer science, I studied industrial design, which
+          shaped how I think about form, material, interaction, and user context.
+          Now I use that design background to build more thoughtful technical projects.
+        </p>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">⌘</div>
+            <h3>Computer Science</h3>
+            <p>Java, Python, data structures, systems, and software prototyping.</p>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">◈</div>
+            <h3>HCI & Robotics</h3>
+            <p>Human-centered research, experiment workflows, and interactive systems.</p>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">▦</div>
+            <h3>Product Systems</h3>
+            <p>From user scenario analysis to physical/digital prototype logic.</p>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">✦</div>
+            <h3>Creative Design</h3>
+            <p>Visual storytelling, speculative design, 3D modeling, and concept development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="projects-header">
+      <div>
+        <div class="section-label">Selected Work</div>
+        <h2>Projects that mix logic, interaction, and imagination.</h2>
+      </div>
+      <p>
+        A portfolio direction inspired by clean research pages and expressive design galleries:
+        clear enough for professors, visual enough for creative work.
+      </p>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card">
+        <div class="project-image">
+          <div class="project-image-inner">
+            <div>
+              <div class="project-year">2026</div>
+              <div class="project-type">HCI Research / Robotics</div>
+            </div>
+            <div class="arrow">↗</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>People & Robots Lab Research</h3>
+          <p>Research work around human-robot interaction, robot behavior, and experimental workflows. Focused on connecting technical implementation with human-centered study design.</p>
+          <div class="tag-list">
+            <span class="tag">HCI</span><span class="tag">Robotics</span><span class="tag">Research</span><span class="tag">Python</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image pink">
+          <div class="project-image-inner">
+            <div>
+              <div class="project-year">2025</div>
+              <div class="project-type">Interactive Hardware / Critical Design</div>
+            </div>
+            <div class="arrow">↗</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Virtual Persona Load Device</h3>
+          <p>A wearable neck device using colored light, motion sensing, and embodied interaction to visualize the pressure of virtual identities and provoke discussion about digital selfhood.</p>
+          <div class="tag-list">
+            <span class="tag">Arduino</span><span class="tag">Wearable</span><span class="tag">Interaction</span><span class="tag">Speculative Design</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image green">
+          <div class="project-image-inner">
+            <div>
+              <div class="project-year">2025</div>
+              <div class="project-type">Product Design / Social Computing</div>
+            </div>
+            <div class="arrow">↗</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Breaking the Chain</h3>
+          <p>A neck-worn monitoring concept designed to help teenagers reduce social media addiction through activity awareness, light sensing, and subtle feedback.</p>
+          <div class="tag-list">
+            <span class="tag">Product Design</span><span class="tag">UX</span><span class="tag">Behavior</span><span class="tag">Prototype</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-image stone">
+          <div class="project-image-inner">
+            <div>
+              <div class="project-year">2025</div>
+              <div class="project-type">System Design / Mobility</div>
+            </div>
+            <div class="arrow">↗</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Modular eVTOL Transfer Station</h3>
+          <p>A modular station concept for low-altitude vehicles and ground transit, using prefabricated cubic units to adapt across small, medium, and large urban scenarios.</p>
+          <div class="tag-list">
+            <span class="tag">Mobility</span><span class="tag">3D Modeling</span><span class="tag">System Design</span><span class="tag">Urban</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="statement-box">
+      <div class="statement">
+        <div>
+          <div style="font-size: 28px; margin-bottom: 20px;">🎓</div>
+          <h2>Currently exploring HCI research and creative technical systems.</h2>
+        </div>
+        <p>
+          The long-term direction of this site is to show not only final outcomes,
+          but also process: research questions, design sketches, technical constraints,
+          prototypes, and reflections. That will make the portfolio useful for research
+          opportunities, internships, and graduate school applications.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Contact</div>
+      <h2>Let’s talk about research, design, prototypes, or creative technology.</h2>
+      <div class="contact-buttons">
+        <a class="button button-dark" href="mailto:xuchengran2004@gmail.com">Email</a>
+        <a class="button button-light" href="https://github.com/xuchengran2004">GitHub</a>
+        <a class="button button-light" href="https://www.linkedin.com/in/cxu429">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Lucas Xu. Built with one simple HTML file.
+  </footer>
+</body>
+</html>
