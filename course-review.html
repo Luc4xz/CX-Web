@@ -232,7 +232,7 @@
 
     .course-list {
       display: grid;
-      gap: 42px;
+      gap: 24px;
     }
 
     .course-row {
@@ -240,8 +240,10 @@
       grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1.58fr);
       gap: 38px;
       align-items: center;
-      padding-bottom: 42px;
-      border-bottom: 1px solid var(--line);
+      padding: 28px;
+      border: 1px solid #cfcfcf;
+      border-radius: 18px;
+      background: #ffffff;
     }
 
     .course-media {
@@ -258,7 +260,7 @@
 
     .course-name {
       font-family: "GARAB", sans-serif;
-      font-size: 28px;
+      font-size: 20px;
       line-height: 1;
       font-weight: 400;
       margin-bottom: 8px;
@@ -296,6 +298,12 @@
     transition: border-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
     }
 
+    @media (hover: none), (pointer: coarse), (max-width: 920px) {
+      .cursor-circle {
+        display: none;
+      }
+    }
+
     @media (max-width: 760px) {
       header {
         height: auto;
@@ -315,6 +323,7 @@
       .course-row {
         grid-template-columns: 1fr;
         gap: 18px;
+        padding: 22px;
       }
     }
   </style>
@@ -449,6 +458,30 @@
             </p>
           </div>
         </article>
+        <article class="course-row" id="math-54">
+          <div class="course-media">
+            <img src="" alt="MATH 54 @ Berkeley" />
+          </div>
+          <div>
+            <h2 class="course-name">MATH 54 @ Berkeley: Linear Algebra and Differential Equations</h2>
+            <p class="course-instructor">TBD</p>
+            <p class="course-desc">
+              
+            </p>
+          </div>
+        </article>
+        <article class="course-row" id="nusctx-10">
+          <div class="course-media">
+            <img src="" alt="NUSCTX 10 @ Berkeley" />
+          </div>
+          <div>
+            <h2 class="course-name">NUSCTX 10 @ Berkeley: Introduction to Human Nutrition</h2>
+            <p class="course-instructor">TBD</p>
+            <p class="course-desc">
+              
+            </p>
+          </div>
+        </article>
        
       </div>
     </div>
@@ -504,6 +537,20 @@
         semester: "Summer 26",
         instructor: "TBD",
         href: "#comp-sci-300"
+      },
+      {
+        number: "MATH 54 @ Berkeley",
+        title: "Linear Algebra and Differential Equations",
+        semester: "Summer 26",
+        instructor: "TBD",
+        href: "#math-54"
+      },
+      {
+        number: "NUSCTX 10 @ Berkeley",
+        title: "Introduction to Human Nutrition",
+        semester: "Summer 26",
+        instructor: "TBD",
+        href: "#nusctx-10"
       },
       {
         number: "COMP SCI 400",
@@ -650,43 +697,49 @@
     requestAnimationFrame(raf);
 
     const cursor = document.querySelector(".cursor-circle");
-    const cursorPosition = {
-      currentX: window.innerWidth / 2,
-      currentY: window.innerHeight / 2,
-      targetX: window.innerWidth / 2,
-      targetY: window.innerHeight / 2
-    };
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    window.addEventListener("mousemove", function (event) {
-      cursorPosition.targetX = event.clientX;
-      cursorPosition.targetY = event.clientY;
-    });
+    if (cursor && hasFinePointer) {
+      const cursorPosition = {
+        currentX: window.innerWidth / 2,
+        currentY: window.innerHeight / 2,
+        targetX: window.innerWidth / 2,
+        targetY: window.innerHeight / 2
+      };
 
-    function animateCursor() {
-      cursorPosition.currentX += (cursorPosition.targetX - cursorPosition.currentX) * 0.22;
-      cursorPosition.currentY += (cursorPosition.targetY - cursorPosition.currentY) * 0.22;
-      cursor.style.left = cursorPosition.currentX + "px";
-      cursor.style.top = cursorPosition.currentY + "px";
-      requestAnimationFrame(animateCursor);
+      window.addEventListener("mousemove", function (event) {
+        cursorPosition.targetX = event.clientX;
+        cursorPosition.targetY = event.clientY;
+      });
+
+      function animateCursor() {
+        cursorPosition.currentX += (cursorPosition.targetX - cursorPosition.currentX) * 0.22;
+        cursorPosition.currentY += (cursorPosition.targetY - cursorPosition.currentY) * 0.22;
+        cursor.style.left = cursorPosition.currentX + "px";
+        cursor.style.top = cursorPosition.currentY + "px";
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      const links = document.querySelectorAll("a, button");
+
+      links.forEach(function (item) {
+        item.addEventListener("mouseenter", function () {
+          cursor.style.transform = "translate(-50%, -50%) scale(2.4)";
+          cursor.style.opacity = "0.35";
+          cursor.style.borderColor = "var(--bg-opposite)";
+        });
+
+        item.addEventListener("mouseleave", function () {
+          cursor.style.transform = "translate(-50%, -50%) scale(1)";
+          cursor.style.opacity = "0.85";
+          cursor.style.borderColor = "var(--cursor-orange)";
+        });
+      });
+    } else if (cursor) {
+      cursor.remove();
     }
-
-    animateCursor();
-
-    const links = document.querySelectorAll("a, button");
-
-    links.forEach(function (item) {
-      item.addEventListener("mouseenter", function () {
-        cursor.style.transform = "translate(-50%, -50%) scale(2.4)";
-        cursor.style.opacity = "0.35";
-        cursor.style.borderColor = "var(--bg-opposite)";
-      });
-
-      item.addEventListener("mouseleave", function () {
-        cursor.style.transform = "translate(-50%, -50%) scale(1)";
-        cursor.style.opacity = "0.85";
-        cursor.style.borderColor = "var(--cursor-orange)";
-      });
-    });
 
     const words = ["Interfaces", "Robots", "AI", "Design"];
     const changingWord = document.getElementById("changing-word");
